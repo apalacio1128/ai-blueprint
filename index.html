@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI Operating System Blueprint | How One Service Business Automated 95% of Operations</title>
+<meta name="description" content="See the exact AI system that handles every call, text, and email — books estimates, answers customers, and runs 24/7 with near-zero human hours.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ai: #7C3AED;
+    --ai-light: #A78BFA;
+    --ai-glow: rgba(124, 58, 237, 0.3);
+    --human: #10B981;
+    --human-light: #6EE7B7;
+    --red: #EF4444;
+    --red-light: #FCA5A5;
+    --bg: #0B0F1A;
+    --card: #131929;
+    --card-border: #1E293B;
+    --text: #E2E8F0;
+    --text-dim: #94A3B8;
+    --accent: #38BDF8;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 40px;
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, var(--ai-glow) 0%, transparent 70%);
+    pointer-events: none;
+    opacity: 0.4;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--ai), #4F46E5);
+    color: white;
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: 44px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #fff 30%, var(--ai-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    font-size: 18px;
+    color: var(--text-dim);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ===== STATS ===== */
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    padding: 40px 24px;
+    max-width: 800px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-number {
+    font-size: 44px;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--accent), var(--ai-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 6px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== SECTION STYLES ===== */
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  /* ===== BEFORE vs AFTER ===== */
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 20px;
+  }
+  .compare-card {
+    border-radius: 16px;
+    padding: 28px;
+  }
+  .compare-card.before {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+  .compare-card.after {
+    background: rgba(124, 58, 237, 0.08);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+  }
+  .compare-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .compare-card.before h3 { color: var(--red-light); }
+  .compare-card.after h3 { color: var(--ai-light); }
+  .compare-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: var(--text-dim);
+  }
+  .compare-item .icon { flex-shrink: 0; font-size: 16px; }
+
+  /* ===== SYSTEM ARCHITECTURE ===== */
+  .system-flow {
+    background: linear-gradient(135deg, #1a1040, #0f1a2e);
+    border: 2px solid var(--ai);
+    border-radius: 24px;
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .system-flow::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at 30% 30%, var(--ai-glow) 0%, transparent 50%);
+    animation: brainPulse 4s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+  @keyframes brainPulse {
+    0% { opacity: 0.2; }
+    100% { opacity: 0.5; }
+  }
+  .system-header {
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 1;
+  }
+  .ai-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--ai);
+    color: white;
+    padding: 5px 14px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .pulse-dot {
+    width: 8px; height: 8px;
+    background: #22D3EE;
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+  .system-header h2 {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+  .system-header p {
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+
+  /* Channels Row */
+  .channels-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+  }
+  .channel-chip {
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: 12px;
+    padding: 12px 20px;
+    text-align: center;
+    flex: 1;
+    max-width: 220px;
+  }
+  .channel-chip .chip-icon { font-size: 24px; margin-bottom: 4px; }
+  .channel-chip h4 { font-size: 13px; font-weight: 700; }
+  .channel-chip p { font-size: 11px; color: var(--text-dim); }
+
+  /* Arrow */
+  .arrow-center {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .arrow-down {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .arrow-line {
+    width: 3px;
+    height: 32px;
+    background: linear-gradient(180deg, var(--ai-light), var(--ai));
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  .arrow-line::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, white, transparent);
+    animation: flowDown 2s infinite;
+  }
+  @keyframes flowDown {
+    0% { top: -100%; }
+    100% { top: 200%; }
+  }
+  .arrow-head {
+    width: 0; height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 10px solid var(--ai);
+  }
+
+  /* Processing Steps */
+  .process-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+  }
+  .process-step {
+    background: rgba(124, 58, 237, 0.15);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+    border-radius: 10px;
+    padding: 12px 16px;
+    text-align: center;
+    flex: 1;
+    max-width: 180px;
+    min-width: 120px;
+  }
+  .process-step .step-num {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--ai-light);
+    letter-spacing: 1px;
+  }
+  .process-step .step-title {
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .process-step .step-desc {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+  .process-arrow {
+    color: var(--ai-light);
+    font-size: 18px;
+    opacity: 0.6;
+  }
+
+  /* Agent Grid */
+  .agents-label {
+    text-align: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--ai-light);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+  .agents-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    position: relative;
+    z-index: 1;
+  }
+  .agent-card {
+    background: rgba(255,255,255, 0.04);
+    border: 1px solid rgba(255,255,255, 0.08);
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .agent-name {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .agent-emoji { font-size: 15px; }
+  .agent-desc {
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.4;
+  }
+
+  /* ===== ACTIONS ===== */
+  .actions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .action-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+  }
+  .action-icon { font-size: 28px; margin-bottom: 8px; }
+  .action-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .action-card p { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
+
+  /* ===== HUMAN SECTION (5% Rule) ===== */
+  .human-box {
+    background: rgba(16, 185, 129, 0.05);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 20px;
+    padding: 32px;
+  }
+  .human-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .human-header .icon-big { font-size: 40px; }
+  .human-header h3 {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--human-light);
+  }
+  .human-header p {
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+  .human-tasks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .human-task {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    padding: 10px 14px;
+    background: rgba(16, 185, 129, 0.06);
+    border-radius: 10px;
+  }
+  .human-task .dot {
+    width: 8px; height: 8px;
+    background: var(--human);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ===== BACKGROUND AUTOMATIONS ===== */
+  .cron-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .cron-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .cron-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+  .cron-card .cron-freq {
+    font-size: 10px;
+    color: var(--ai-light);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .cron-card p { font-size: 11px; color: var(--text-dim); line-height: 1.4; }
+
+  /* ===== COST SECTION ===== */
+  .cost-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 20px;
+  }
+  .cost-card {
+    border-radius: 16px;
+    padding: 28px;
+    text-align: center;
+  }
+  .cost-card.old {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+  }
+  .cost-card.new {
+    background: rgba(124, 58, 237, 0.08);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+  }
+  .cost-card .cost-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .cost-card .cost-amount {
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .cost-card.old .cost-amount { color: var(--red-light); }
+  .cost-card.new .cost-amount {
+    background: linear-gradient(135deg, var(--ai-light), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .cost-card .cost-detail {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+  .cost-banner {
+    background: linear-gradient(135deg, var(--ai), #4F46E5);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  /* ===== RESULTS ===== */
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .result-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 22px;
+    text-align: center;
+  }
+  .result-card .result-before {
+    font-size: 12px;
+    color: var(--red-light);
+    text-decoration: line-through;
+    margin-bottom: 4px;
+  }
+  .result-card .result-after {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    background: linear-gradient(135deg, var(--accent), var(--ai-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .result-card .result-label {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-weight: 500;
+  }
+
+  /* ===== CTA ===== */
+  .cta-section {
+    text-align: center;
+    padding: 60px 24px 80px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .cta-section h2 {
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #fff, var(--ai-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .cta-section p {
+    font-size: 16px;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+  .cta-button {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--ai), #4F46E5);
+    color: white;
+    padding: 16px 40px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 8px 30px var(--ai-glow);
+  }
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px var(--ai-glow);
+  }
+  .cta-sub {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-top: 14px;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    padding: 30px;
+    border-top: 1px solid var(--card-border);
+  }
+  .footer p {
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+
+  /* ===== MOBILE ===== */
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 30px; }
+    .hero p { font-size: 16px; }
+    .stats-bar { gap: 24px; }
+    .stat-number { font-size: 32px; }
+    .comparison { grid-template-columns: 1fr; }
+    .channels-row { flex-direction: column; align-items: center; }
+    .channel-chip { max-width: 100%; }
+    .process-flow { flex-direction: column; gap: 8px; }
+    .process-arrow { transform: rotate(90deg); }
+    .process-step { max-width: 100%; }
+    .agents-grid { grid-template-columns: 1fr; }
+    .actions-grid { grid-template-columns: 1fr; }
+    .human-tasks { grid-template-columns: 1fr; }
+    .cron-grid { grid-template-columns: 1fr 1fr; }
+    .cost-section { grid-template-columns: 1fr; }
+    .results-grid { grid-template-columns: 1fr; }
+    .cta-section h2 { font-size: 26px; }
+    .cost-card .cost-amount { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-badge">Full System Breakdown</div>
+  <h1>The AI Operating System That Runs a Service Business</h1>
+  <p>This is the exact system handling every call, text, and email for a real service company. 6 AI agents. 24/7 coverage. Near-zero human hours.</p>
+</div>
+
+<!-- ===== STATS ===== -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-number">6</div>
+    <div class="stat-label">AI AGENTS</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">95%</div>
+    <div class="stat-label">AUTOMATED</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">24/7</div>
+    <div class="stat-label">RESPONSE TIME</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">4</div>
+    <div class="stat-label">HUMAN TASKS LEFT</div>
+  </div>
+</div>
+
+<!-- ===== BEFORE vs AFTER ===== -->
+<div class="section">
+  <div class="section-title">THE PROBLEM vs THE SOLUTION</div>
+  <div class="comparison">
+    <div class="compare-card before">
+      <h3>Before AI</h3>
+      <div class="compare-item"><span class="icon">&#10060;</span> Missed calls after hours = lost revenue</div>
+      <div class="compare-item"><span class="icon">&#10060;</span> Office staff juggling phones, emails, scheduling</div>
+      <div class="compare-item"><span class="icon">&#10060;</span> Leads wait hours (or days) for a response</div>
+      <div class="compare-item"><span class="icon">&#10060;</span> Paying $4,000-8,000/mo for admin staff</div>
+      <div class="compare-item"><span class="icon">&#10060;</span> Owner buried in texts and voicemails</div>
+      <div class="compare-item"><span class="icon">&#10060;</span> No follow-up system = money left on the table</div>
+    </div>
+    <div class="compare-card after">
+      <h3>After AI</h3>
+      <div class="compare-item"><span class="icon">&#10004;</span> Every call answered instantly, even at 2 AM</div>
+      <div class="compare-item"><span class="icon">&#10004;</span> AI handles sales, billing, dispatch, retention</div>
+      <div class="compare-item"><span class="icon">&#10004;</span> Leads get responses in seconds, not hours</div>
+      <div class="compare-item"><span class="icon">&#10004;</span> Fraction of the cost of human staff</div>
+      <div class="compare-item"><span class="icon">&#10004;</span> Owner gets alerts only for what matters</div>
+      <div class="compare-item"><span class="icon">&#10004;</span> Automated follow-ups on every quote and deposit</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== THE FULL SYSTEM ===== -->
+<div class="section">
+  <div class="section-title">THE COMPLETE AI SYSTEM</div>
+  <div class="system-flow">
+    <div class="system-header">
+      <div class="ai-tag"><div class="pulse-dot"></div> LIVE SYSTEM</div>
+      <h2>How Every Customer Interaction Gets Handled</h2>
+      <p>From first contact to booked job &mdash; no human touches it</p>
+    </div>
+
+    <!-- Inbound Channels -->
+    <div class="channels-row">
+      <div class="channel-chip">
+        <div class="chip-icon">&#128222;</div>
+        <h4>Phone Calls</h4>
+        <p>AI voice agent answers as a real person, collects info, books estimates</p>
+      </div>
+      <div class="channel-chip">
+        <div class="chip-icon">&#128172;</div>
+        <h4>Text Messages</h4>
+        <p>AI reads, understands, and responds in seconds. No templates.</p>
+      </div>
+      <div class="channel-chip">
+        <div class="chip-icon">&#128231;</div>
+        <h4>Emails</h4>
+        <p>AI reads emails, pulls customer history, drafts professional replies</p>
+      </div>
+    </div>
+
+    <div class="arrow-center">
+      <div class="arrow-down">
+        <div class="arrow-line"></div>
+        <div class="arrow-head"></div>
+      </div>
+    </div>
+
+    <!-- Processing Steps -->
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-num">STEP 1</div>
+        <div class="step-title">Identify</div>
+        <div class="step-desc">New lead or existing customer?</div>
+      </div>
+      <div class="process-arrow">&rarr;</div>
+      <div class="process-step">
+        <div class="step-num">STEP 2</div>
+        <div class="step-title">Classify</div>
+        <div class="step-desc">Sales? Billing? Complaint?</div>
+      </div>
+      <div class="process-arrow">&rarr;</div>
+      <div class="process-step">
+        <div class="step-num">STEP 3</div>
+        <div class="step-title">Enrich</div>
+        <div class="step-desc">Pull quotes, jobs & history</div>
+      </div>
+      <div class="process-arrow">&rarr;</div>
+      <div class="process-step">
+        <div class="step-num">STEP 4</div>
+        <div class="step-title">Route & Act</div>
+        <div class="step-desc">Send to specialist agent</div>
+      </div>
+    </div>
+
+    <div class="arrow-center">
+      <div class="arrow-down">
+        <div class="arrow-line"></div>
+        <div class="arrow-head"></div>
+      </div>
+    </div>
+
+    <!-- Agent Grid -->
+    <div class="agents-label">6 SPECIALIST AI AGENTS</div>
+    <div class="agents-grid">
+      <div class="agent-card">
+        <div class="agent-name"><span class="agent-emoji">&#127919;</span> Sales Agent</div>
+        <div class="agent-desc">Handles new leads and quote requests. Books assessments directly into the CRM.</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-name"><span class="agent-emoji">&#129309;</span> Customer Service</div>
+        <div class="agent-desc">Answers service questions, pricing, availability. Full knowledge of the business.</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-name"><span class="agent-emoji">&#128176;</span> Billing Agent</div>
+        <div class="agent-desc">Handles payment questions and invoice issues with real accounting data.</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-name"><span class="agent-emoji">&#128197;</span> Dispatch Agent</div>
+        <div class="agent-desc">Schedule changes, crew no-shows, rescheduling. Creates tickets with deadlines.</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-name"><span class="agent-emoji">&#10084;&#65039;</span> Retention Agent</div>
+        <div class="agent-desc">Intercepts cancellations with empathy. Offers alternatives before losing customers.</div>
+      </div>
+      <div class="agent-card">
+        <div class="agent-name"><span class="agent-emoji">&#128680;</span> Escalation Agent</div>
+        <div class="agent-desc">Urgent complaints and threats. Immediately alerts the owner via SMS.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== AUTOMATED ACTIONS ===== -->
+<div class="section">
+  <div class="section-title">WHAT HAPPENS AUTOMATICALLY</div>
+  <div class="actions-grid">
+    <div class="action-card">
+      <div class="action-icon">&#128203;</div>
+      <h4>Books Into CRM</h4>
+      <p>Creates client profiles, service requests, and assessment visits automatically</p>
+    </div>
+    <div class="action-card">
+      <div class="action-icon">&#128172;</div>
+      <h4>Replies to Customers</h4>
+      <p>Sends personalized SMS and email responses &mdash; not templates</p>
+    </div>
+    <div class="action-card">
+      <div class="action-icon">&#127915;</div>
+      <h4>Creates Tickets</h4>
+      <p>Logs complaints and complex requests with SLA deadlines</p>
+    </div>
+    <div class="action-card">
+      <div class="action-icon">&#128241;</div>
+      <h4>Alerts Owner</h4>
+      <p>Urgent SMS for escalations, threats, or critical issues only</p>
+    </div>
+    <div class="action-card">
+      <div class="action-icon">&#9989;</div>
+      <h4>Confirms Bookings</h4>
+      <p>Sends confirmation SMS with next steps after booking</p>
+    </div>
+    <div class="action-card">
+      <div class="action-icon">&#128200;</div>
+      <h4>Follows Up</h4>
+      <p>Auto-chases unpaid deposits and unapproved quotes</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== THE 5% RULE ===== -->
+<div class="section">
+  <div class="section-title">THE 5% RULE &mdash; WHAT HUMANS ACTUALLY DO</div>
+  <div class="human-box">
+    <div class="human-header">
+      <div class="icon-big">&#128100;</div>
+      <div>
+        <h3>Only 4 Things Left for Humans</h3>
+        <p>AI handles 95% of operations. People focus on what only people can do.</p>
+      </div>
+    </div>
+    <div class="human-tasks">
+      <div class="human-task"><div class="dot"></div> Review & send AI-drafted emails</div>
+      <div class="human-task"><div class="dot"></div> Show up to assessment visits</div>
+      <div class="human-task"><div class="dot"></div> Resolve complex tickets flagged by AI</div>
+      <div class="human-task"><div class="dot"></div> Do the actual service work</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== BACKGROUND AUTOMATIONS ===== -->
+<div class="section">
+  <div class="section-title">RUNS IN THE BACKGROUND 24/7</div>
+  <div class="cron-grid">
+    <div class="cron-card">
+      <h4>&#127973; Health Monitor</h4>
+      <div class="cron-freq">Every 30 min</div>
+      <p>Checks all integrations are alive. Refreshes tokens. Alerts if anything breaks.</p>
+    </div>
+    <div class="cron-card">
+      <h4>&#128184; Quote Converter</h4>
+      <div class="cron-freq">Daily</div>
+      <p>Approved quotes with deposits auto-convert into scheduled jobs.</p>
+    </div>
+    <div class="cron-card">
+      <h4>&#128276; Deposit Reminders</h4>
+      <div class="cron-freq">Every hour</div>
+      <p>Approved quotes without payment get automated follow-up emails.</p>
+    </div>
+    <div class="cron-card">
+      <h4>&#128232; Email Scanner</h4>
+      <div class="cron-freq">Every 5 min</div>
+      <p>Continuously scans inbox for new customer emails to process.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== COST COMPARISON ===== -->
+<div class="section">
+  <div class="section-title">THE REAL COST OF NOT USING AI</div>
+  <div class="cost-section">
+    <div class="cost-card old">
+      <div class="cost-label">What You're Paying Now</div>
+      <div class="cost-amount">$8,000+</div>
+      <div class="cost-detail">Office staff, virtual assistants, answering services, follow-up tools, missed leads</div>
+    </div>
+    <div class="cost-card new">
+      <div class="cost-label">What AI Replaces</div>
+      <div class="cost-amount">All of It</div>
+      <div class="cost-detail">Sales, customer service, billing, dispatch, retention, follow-ups &mdash; handled 24/7</div>
+    </div>
+  </div>
+  <div class="cost-banner">You get your time back. And your margins.</div>
+</div>
+
+<!-- ===== RESULTS ===== -->
+<div class="section">
+  <div class="section-title">REAL RESULTS FROM A REAL BUSINESS</div>
+  <div class="results-grid">
+    <div class="result-card">
+      <div class="result-before">30+ min response time</div>
+      <div class="result-after">Instant</div>
+      <div class="result-label">Customer Response Time</div>
+    </div>
+    <div class="result-card">
+      <div class="result-before">40% of calls missed</div>
+      <div class="result-after">0% Missed</div>
+      <div class="result-label">After-Hours Calls</div>
+    </div>
+    <div class="result-card">
+      <div class="result-before">Manual follow-ups</div>
+      <div class="result-after">Automated</div>
+      <div class="result-label">Quote & Deposit Follow-Up</div>
+    </div>
+    <div class="result-card">
+      <div class="result-before">2+ office staff</div>
+      <div class="result-after">0 Needed</div>
+      <div class="result-label">Admin Staff Required</div>
+    </div>
+    <div class="result-card">
+      <div class="result-before">Hours per day on admin</div>
+      <div class="result-after">~15 min/day</div>
+      <div class="result-label">Owner Admin Time</div>
+    </div>
+    <div class="result-card">
+      <div class="result-before">No system, just hustle</div>
+      <div class="result-after">Full OS</div>
+      <div class="result-label">Business Operating System</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CTA ===== -->
+<div class="cta-section">
+  <h2>Want This Built for Your Business?</h2>
+  <p>I built this system from scratch and it runs a real company every day. If you want the same thing &mdash; AI handling your calls, texts, emails, scheduling, billing, and follow-ups &mdash; let's talk.</p>
+  <a href="https://cal.com/andrea-palacio/1hr-meeting" class="cta-button">Book a Free Strategy Call</a>
+  <p class="cta-sub">30-minute call. No pitch deck. Just a walkthrough of what this would look like for your business.</p>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+  <p>Built with AI. Run by AI. Humans just do the work that matters.</p>
+</div>
+
+</body>
+</html>
